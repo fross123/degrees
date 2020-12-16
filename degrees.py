@@ -91,8 +91,10 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    count_explored = 0
+    print(f"Searching: {count_explored}", end="", flush=True)
 
-    # TODO
+    # Initiate starting node and frontier
     start = Node(state=source, parent=None, action=None)
     frontier = QueueFrontier()
     frontier.add(start)
@@ -100,22 +102,28 @@ def shortest_path(source, target):
     explored = set()
 
     while True:
-        # If frontier is empty, then no solution
-        if frontier.empty():
+        if frontier.empty(): # If frontier is empty, then no solution
             return None
         
+        # Checkout node from frontier
         node = frontier.remove()
 
-        if node.state == target:
-            solution = []
+        # Update count
+        count_explored += 1
+        print(f"\rSearching: {count_explored}", end="", flush=True)
 
-            # Find solution
-            while node.parent is not None:
-                solution.append((node.action, node.state))
-                node = node.parent
+        # if node.state == target: # target reached
+        #     solution = []
 
-            # reverse list            
-            return solution[::-1]
+        #     # Loop backwards to find a solution
+        #     while node.parent is not None:
+        #         solution.append((node.action, node.state))
+        #         node = node.parent
+            
+        #     print()
+        #     # return reversed list            
+        #     return solution[::-1]
+            
 
         # Mark node as explored
         explored.add(node.state)
@@ -124,16 +132,21 @@ def shortest_path(source, target):
         for action, state in neighbors_for_person(node.state):
             if not frontier.contains_state(state) and state not in explored:
                 child = Node(state=state, parent=node, action=action)
+
+                # If child is the target, get solution
                 if child.state == target:
                     node = child
                     solution = []
 
-                    # Find solution
+                    # Loop backwards to find solution
                     while node.parent is not None:
                         solution.append((node.action, node.state))
                         node = node.parent
 
-                    # reverse list            
+                    # print newline
+                    print()
+
+                    # return reversed list
                     return solution[::-1]
                 else:
                     frontier.add(child)
