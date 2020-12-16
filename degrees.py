@@ -103,6 +103,7 @@ def shortest_path(source, target):
 
     while True:
         if frontier.empty(): # If frontier is empty, then no solution
+            print()
             return None
         
         # Checkout node from frontier
