@@ -110,20 +110,7 @@ def shortest_path(source, target):
 
         # Update count
         count_explored += 1
-        print(f"\rSearching: {count_explored}", end="", flush=True)
-
-        # if node.state == target: # target reached
-        #     solution = []
-
-        #     # Loop backwards to find a solution
-        #     while node.parent is not None:
-        #         solution.append((node.action, node.state))
-        #         node = node.parent
-            
-        #     print()
-        #     # return reversed list            
-        #     return solution[::-1]
-            
+        print(f"\rSearching: {count_explored}", end="", flush=True)            
 
         # Mark node as explored
         explored.add(node.state)
